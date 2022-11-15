@@ -21,10 +21,7 @@ Bundle 'godlygeek/tabular'
 "--------------
 " Color Schemes
 "--------------
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'rickharris/vim-monokai'
 Bundle 'tpope/vim-vividchalk'
-Bundle 'Lokaltog/vim-distinguished'
 Bundle 'chriskempson/vim-tomorrow-theme'
 
 "-------------
@@ -33,7 +30,7 @@ Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'tpope/vim-fugitive'
 Bundle 'gregsexton/gitv'
 Bundle 'zivyangll/git-blame.vim'
-Bundle 'uyuanp/nerdtree-git-plugin'
+Bundle 'Xuyuanp/nerdtree-git-plugin'
 Bundle 'airblade/vim-gitgutter'
 nnoremap <Leader>gb :<C-u>call gitblame#echo()<CR>
 "-------------
@@ -76,8 +73,13 @@ let g:airline_symbols.whitespace = 'Ξ'
 Bundle 'The-NERD-Commenter'
 
 "-------------
+"去除空格
+"-------------
+Bundle 'bronson/vim-trailing-whitespace'
+"-------------
 "目录工具nerd_tree
 "-------------
+Bundle 'scrooloose/nerdtree'
 let NERDTreeIgnore=['\.pyc']
 nmap <silent> <F9> <ESC>:Tlist<RETURN>
 "列出当前目录文件  
@@ -93,17 +95,18 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 "-------------
 " 文件搜素工具
 "-------------
-Bundle 'FuzzyFinder'
-Bundle 'https://github.com/wincent/command-t.git'
+Bundle 'vim-scripts/FuzzyFinder'
 Bundle 'tacahiroy/ctrlp-funky'
-Bundle 'ctrlp.vim'
-Bundle 'ctrlp-modified.vim'
+Bundle 'kien/ctrlp.vim'
+Bundle 'jasoncodes/ctrlp-modified.vim'
+Bundle 'mileszs/ack.vim'
+Bundle 'rking/ag.vim'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.png,*.jpg,*.gif     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.pyc,*.png,*.jpg,*.gif  " Windows
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
 let g:ctrlp_extensions = ['funky']
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_path_mode = 'rw'
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -118,9 +121,9 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
-if executable('rg')
-  let g:ackprg = 'rg --vimgrep'
-endif
+"if executable('rg')
+"let g:ackprg = 'rg --vimgrep'
+"endif
 "高亮搜索关键词
 let g:ackhighlight = 1
 "修改快速预览窗口高度为15
@@ -161,7 +164,7 @@ let g:tagbar_left      = 1       " 让 tagbar 在页面左侧显示，默认右�
 " <leader>tb 打开 tagbar 窗口，在左侧栏显示
 map <leader>tb :TagbarToggle<CR>
 "taglist
-Bundle 'vim-scripts/taglist.vim'
+Bundle 'majutsushi/taglist.vim'
 let Tlist_Show_One_File           = 1    " 只显示当前文件的tags
 let Tlist_GainFocus_On_ToggleOpen = 1    " 打开 Tlist 窗口时，光标跳到 Tlist 窗口
 let Tlist_Exit_OnlyWindow         = 1    " 如果 Tlist 窗口是最后一个窗口则退出 Vim
@@ -174,12 +177,12 @@ map <leader>tl :TlistToggle<CR>
 "-------------
 " 语法检查工具
 "-------------
-Bundle 'https://github.com/dense-analysis/ale.git'
+Bundle 'dense-analysis/ale.git'
 
 "-------------
 " 括号工具
 "-------------
-Bundle 'Auto-Pairs'
+Bundle 'vim-scripts/Auto-Pairs'
 Bundle 'kien/rainbow_parentheses.vim'
 "-------------
 "系统剪切板
@@ -200,7 +203,7 @@ Bundle 'tpope/vim-sensible'
 "-------------
 " ycm
 "-------------
-Bundle 'Valloric/YouCompleteMe' 
+Bundle 'ycm-core/YouCompleteMe'
 set completeopt=longest,menu "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif "离开插入模式后自动关闭预览窗口
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>" "回车即选中当前项
@@ -246,4 +249,10 @@ let g:cpp_experimental_template_highlight = 1
 let g:cpp_concepts_highlight = 1
 let g:cpp_no_function_highlight = 1
 
+"-------------
+" c++format
+"-------------
+Bundle "rhysd/vim-clang-format"
+vmap fm :ClangFormat<CR>
+nmap fm :ClangFormat<CR>
 filetype plugin indent on     " required!
