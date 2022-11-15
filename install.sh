@@ -1,7 +1,5 @@
 #!/bin/sh
-
 echo "start install vim module"
-
 #公司vpn
 export http_proxy=http://gfw.gs-robot.cn:6780
 export https_proxy=$http_proxy
@@ -9,6 +7,11 @@ export https_proxy=$http_proxy
 #安装所需的系统工具
 sudo apt-get install clang-format vim vim-gtk3 exuberant-ctags silversearcher-ag ack-grep
 
+cd $HOME
+mv $HOME/.vim $HOME/.vim_old
+mv $HOME/.vimrc $HOME/.vimrc_old
+git clone git@git.gs-robot.com:zhuyouji/vim_project.git .vim
+cd .vim
 #update git module
 git submodule update --init --recursive
 
@@ -21,6 +24,5 @@ rm vim_install
 cd bundle/YouCompleteMe
 git submodule update --init --recursive
 python3 install.py --clangd-completer
-cd ../..
-ln -s .vimrc ~/
-source ~/.vimrc
+cd $HOME
+ln -s $HOME/.vim/.vimrc .
