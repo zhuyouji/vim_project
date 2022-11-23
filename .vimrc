@@ -35,7 +35,7 @@ set cul
 set shortmess=atI
 set clipboard=unnamed
 set go=
-color Tomorrow-Night-Bright
+color monokai
 set guifont=Courier_New:h10:cANSI
 autocmd InsertEnter *se nocul
 set ruler
@@ -103,6 +103,7 @@ imap <C-v> <Esc>"*pa
 imap <C-a> <Esc>^
 imap <C-e> <Esc>$
 vmap <C-c> "+y
+map <C-s> :w<CR>
 
 "去空行
 nnoremap <F2> :g/^\s*$/d<CR>
@@ -125,6 +126,8 @@ map <leader>6 :b 6<CR>
 map <leader>7 :b 7<CR>
 map <leader>8 :b 8<CR>
 map <leader>9 :b 9<CR>
+map bn :bn<CR>
+map bp :bp<CR>
 
 
 au FileType c++ setlocal dict+=~/.vim/dict/c++.dict

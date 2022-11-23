@@ -81,6 +81,7 @@ Bundle 'bronson/vim-trailing-whitespace'
 "-------------
 Bundle 'scrooloose/nerdtree'
 let NERDTreeIgnore=['\.pyc']
+let NERDTreeChDirMode=3
 nmap <silent> <F9> <ESC>:Tlist<RETURN>
 "列出当前目录文件  
 map <F3> :NERDTreeToggle<CR>
@@ -88,9 +89,8 @@ imap <F3> <ESC> :NERDTreeToggle<CR>
 "打开树状文件目录  
 map <C-F3> \be  
 autocmd vimenter * if !argc() | NERDTree | endif
-" 只剩 NERDTree时自动关闭
+" 只剩 NERDTree时自动关闭 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
 
 "-------------
 " 文件搜素工具
@@ -101,12 +101,12 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'jasoncodes/ctrlp-modified.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'rking/ag.vim'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.png,*.jpg,*.gif     " MacOSX/Linux
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.png,*.jpg,*.gif,bazel*    " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.pyc,*.png,*.jpg,*.gif  " Windows
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
 let g:ctrlp_extensions = ['funky']
-let g:ctrlp_working_path_mode = 'rw'
+let g:ctrlp_working_path_mode = '0'
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -115,7 +115,7 @@ endif
 
 "ack
 "<Leader>c进行搜索，同时不自动打开第一个匹配的文件
-nmap <Leader>c :Ack<CR>
+nmap <Leader>c :Ack!<CR>
 "调用ag进行搜索
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
@@ -222,10 +222,20 @@ let g:ycm_collect_identifiers_from_tags_files=1 " 开启 YCM 基于标签引擎
 let g:ycm_min_num_of_chars_for_completion=1 " 从第2个键入字符就开始罗列匹配项
 let g:ycm_cache_omnifunc=0 " 禁止缓存匹配项,每次都重新生成匹配项
 let g:ycm_seed_identifiers_with_syntax=1 " 语法关键字补全
+let g:ycm_show_diagnostics_ui = 0
+
+
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR> "force recomile with syntatic
 "nnoremap <leader>lo :lopen<CR> "open locationlist
 "nnoremap <leader>lc :lclose<CR> "close locationlist
 inoremap <leader><leader> <C-x><C-o>
+let g:ycm_filetype_whitelist = {
+			\ "c":1,
+			\ "cpp":1,
+			\ "objc":1,
+			\ "sh":1,
+			\ "zsh":1,
+			\ }
 "在注释输入中也能补全
 let g:ycm_complete_in_comments = 1
 "在字符串输入中也能补全
@@ -234,7 +244,6 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
-
 
 "-------------
 " 语法高亮
