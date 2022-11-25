@@ -117,15 +117,15 @@ nmap sp :split<CR>
 nmap <leader>q :q<CR>
 
 
-map <leader>1 :b 1<CR>
-map <leader>2 :b 2<CR>
-map <leader>3 :b 3<CR>
-map <leader>4 :b 4<CR>
-map <leader>5 :b 5<CR>
-map <leader>6 :b 6<CR>
-map <leader>7 :b 7<CR>
-map <leader>8 :b 8<CR>
-map <leader>9 :b 9<CR>
+map <leader>1 :tabnext 1<CR>
+map <leader>2 :tabnext 2<CR>
+map <leader>3 :tabnext 3<CR>
+map <leader>4 :tabnext 4<CR>
+map <leader>5 :tabnext 5<CR>
+map <leader>6 :tabnext 6<CR>
+map <leader>7 :tabnext 7<CR>
+map <leader>8 :tabnext 8<CR>
+map <leader>9 :tabnext 9<CR>
 map bn :bn<CR>
 map bp :bp<CR>
 

@@ -264,4 +264,53 @@ let g:cpp_no_function_highlight = 1
 Bundle "rhysd/vim-clang-format"
 vmap fm :ClangFormat<CR>
 nmap fm :ClangFormat<CR>
+
+
+"-------------
+" log 高亮
+"-------------
+Bundle 'MTDL9/vim-log-highlighting'
+
+
+"-------------
+" c.vim
+"-------------
+Bundle 'c.vim'
+
+
+"-------------
+" lsp工具
+"-------------
+Bundle 'prabirshrestha/async.vim'
+Bundle 'prabirshrestha/asyncomplete.vim'
+Bundle 'prabirshrestha/vim-lsp'
+Bundle 'prabirshrestha/asyncomplete-lsp.vim'
+Bundle 'prabirshrestha/asyncomplete-file.vim'
+
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'whitelist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
+
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+if executable('bash-language-server')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'bash-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
+        \ 'whitelist': ['sh'],
+        \ })
+endif
+
 filetype plugin indent on     " required!
