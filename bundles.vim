@@ -15,7 +15,7 @@ Bundle 'gmarik/vundle'
 Bundle 'L9'
 Bundle 'hecal3/vim-leader-guide'
 "-------------
-"代码美化工具
+"美化工具,对齐作用
 "-------------
 Bundle 'godlygeek/tabular'
 "--------------
@@ -76,6 +76,8 @@ Bundle 'The-NERD-Commenter'
 "去除空格
 "-------------
 Bundle 'bronson/vim-trailing-whitespace'
+map <leader><space> :FixWhitespace<cr>
+
 "-------------
 "目录工具nerd_tree
 "-------------
@@ -83,13 +85,13 @@ Bundle 'scrooloose/nerdtree'
 let NERDTreeIgnore=['\.pyc']
 let NERDTreeChDirMode=3
 nmap <silent> <F9> <ESC>:Tlist<RETURN>
-"列出当前目录文件  
+"列出当前目录文件
 map <F3> :NERDTreeToggle<CR>
 imap <F3> <ESC> :NERDTreeToggle<CR>
-"打开树状文件目录  
-map <C-F3> \be  
+"打开树状文件目录
+map <C-F3> \be
 autocmd vimenter * if !argc() | NERDTree | endif
-" 只剩 NERDTree时自动关闭 
+" 只剩 NERDTree时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 "-------------
@@ -137,19 +139,19 @@ let g:ack_use_cword_for_empty_search = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CTags的设定  
+" CTags的设定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let Tlist_Sort_Type = "name"    " 按照名称排序  
-let Tlist_Use_Right_Window = 1  " 在右侧显示窗口  
-let Tlist_Compart_Format = 1    " 压缩方式  
+let Tlist_Sort_Type = "name"    " 按照名称排序
+let Tlist_Use_Right_Window = 1  " 在右侧显示窗口
+let Tlist_Compart_Format = 1    " 压缩方式
 let Tlist_File_Fold_Auto_Close = 1
-let Tlist_Exist_OnlyWindow = 1  " 如果只有一个buffer，kill窗口也kill掉buffer  
-""let Tlist_File_Fold_Auto_Close = 0  " 不要关闭其他文件的tags  
-""let Tlist_Enable_Fold_Column = 0    " 不要显示折叠树  
+let Tlist_Exist_OnlyWindow = 1  " 如果只有一个buffer，kill窗口也kill掉buffer
+""let Tlist_File_Fold_Auto_Close = 0  " 不要关闭其他文件的tags
+""let Tlist_Enable_Fold_Column = 0    " 不要显示折叠树
 "let Tlist_Show_One_File=1            "不同时显示多个文件的tag，只显示当前文件的
-"设置tags  
-set tags=tags;  
-"set autochdir 
+"设置tags
+set tags=tags;
+"set autochdir
 nmap tl :Tlist<cr>
 
 
@@ -212,11 +214,6 @@ inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-"youcompleteme  默认tab  s-tab 和自动补全冲突
-"let g:ycm_key_list_select_completion=['<c-n>']
-"let g:ycm_key_list_select_completion = ['<Down>']
-"let g:ycm_key_list_previous_completion=['<c-p>']
-"let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_confirm_extra_conf=0 "关闭加载.ycm_extra_conf.py提示
 let g:ycm_collect_identifiers_from_tags_files=1 " 开启 YCM 基于标签引擎
 let g:ycm_min_num_of_chars_for_completion=1 " 从第2个键入字符就开始罗列匹配项
@@ -271,46 +268,9 @@ nmap fm :ClangFormat<CR>
 "-------------
 Bundle 'MTDL9/vim-log-highlighting'
 
-
 "-------------
 " c.vim
 "-------------
 Bundle 'c.vim'
-
-
-"-------------
-" lsp工具
-"-------------
-Bundle 'prabirshrestha/async.vim'
-Bundle 'prabirshrestha/asyncomplete.vim'
-Bundle 'prabirshrestha/vim-lsp'
-Bundle 'prabirshrestha/asyncomplete-lsp.vim'
-Bundle 'prabirshrestha/asyncomplete-file.vim'
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-    \ 'name': 'file',
-    \ 'whitelist': ['*'],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#file#completor')
-    \ }))
-
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
-
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-if executable('bash-language-server')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'bash-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
-        \ 'whitelist': ['sh'],
-        \ })
-endif
 
 filetype plugin indent on     " required!
