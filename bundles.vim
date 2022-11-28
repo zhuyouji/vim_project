@@ -23,7 +23,10 @@ Bundle 'godlygeek/tabular'
 "--------------
 Bundle 'tpope/vim-vividchalk'
 Bundle 'chriskempson/vim-tomorrow-theme'
-
+Bundle 'ghifarit53/tokyonight-vim'
+set termguicolors
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 1
 "-------------
 " git 工具
 "-------------
@@ -141,7 +144,7 @@ let g:ack_use_cword_for_empty_search = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTags的设定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let Tlist_Sort_Type = "name"    " 按照名称排序
+"let Tlist_Sort_Type = "name"    " 按照名称排序
 let Tlist_Use_Right_Window = 1  " 在右侧显示窗口
 let Tlist_Compart_Format = 1    " 压缩方式
 let Tlist_File_Fold_Auto_Close = 1
@@ -150,8 +153,9 @@ let Tlist_Exist_OnlyWindow = 1  " 如果只有一个buffer，kill窗口也kill�
 ""let Tlist_Enable_Fold_Column = 0    " 不要显示折叠树
 "let Tlist_Show_One_File=1            "不同时显示多个文件的tag，只显示当前文件的
 "设置tags
+nmap <leader>tg :!ctags --langmap=c++:+.inl --c++-kinds=+px  --extra=+q --fields=+aiKSz --exclude=bazel* -R *<CR>
 set tags=tags;
-"set autochdir
+set autochdir
 nmap tl :Tlist<cr>
 
 
@@ -161,7 +165,7 @@ Bundle 'majutsushi/tagbar'
 let g:tagbar_ctags_bin = 'ctags' " tagbar 依赖 ctags 插件
 let g:tagbar_width     = 30      " 设置 tagbar 的宽度为 30 列，默认 40 列
 let g:tagbar_autofocus = 1       " 打开 tagbar 时光标在 tagbar 页面内，默认在 vim 打开的文件内
-let g:tagbar_left      = 1       " 让 tagbar 在页面左侧显示，默认右边
+"let g:tagbar_left      = 1       " 让 tagbar 在页面左侧显示，默认右边
 "let g:tagbar_sort      = 0       " 标签不排序，默认排序
 " <leader>tb 打开 tagbar 窗口，在左侧栏显示
 map <leader>tb :TagbarToggle<CR>

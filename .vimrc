@@ -12,7 +12,7 @@ syntax on
 
 
 " set param
-set sw=2 
+set sw=2
 set ts=2
 set softtabstop=2
 set et
@@ -35,7 +35,7 @@ set cul
 set shortmess=atI
 set clipboard=unnamed
 set go=
-color monokai
+color tokyonight
 set guifont=Courier_New:h10:cANSI
 autocmd InsertEnter *se nocul
 set ruler
