@@ -106,6 +106,3 @@
 [submodule "bundle/c.vim"]
 	path = bundle/c.vim
 	url = https://github.com/vim-scripts/c.vim.git
-[submodule "bundle/tokyonight-vim"]
-	path = bundle/tokyonight-vim
-	url = https://github.com/ghifarit53/tokyonight-vim.git

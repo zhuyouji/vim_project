@@ -27,6 +27,8 @@ Bundle 'ghifarit53/tokyonight-vim'
 set termguicolors
 let g:tokyonight_style = 'night' " available: night, storm
 let g:tokyonight_enable_italic = 1
+let g:lightline = {'colorscheme' : 'tokyonight'}
+let g:airline_theme = "tokyonight"
 "-------------
 " git 工具
 "-------------
@@ -155,7 +157,7 @@ let Tlist_Exist_OnlyWindow = 1  " 如果只有一个buffer，kill窗口也kill�
 "设置tags
 nmap <leader>tg :!ctags --langmap=c++:+.inl --c++-kinds=+px  --extra=+q --fields=+aiKSz --exclude=bazel* -R *<CR>
 set tags=tags;
-set autochdir
+"set autochdir
 nmap tl :Tlist<cr>
 
 
