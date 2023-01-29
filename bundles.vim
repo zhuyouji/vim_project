@@ -18,6 +18,13 @@ Bundle 'hecal3/vim-leader-guide'
 "美化工具,对齐作用
 "-------------
 Bundle 'godlygeek/tabular'
+
+
+"-------------
+" markdown功能
+"-------------
+Bundle 'preservim/vim-markdown'
+Bundle 'instant-markdown/vim-instant-markdown'
 "--------------
 " Color Schemes
 "--------------

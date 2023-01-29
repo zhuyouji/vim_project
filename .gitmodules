@@ -106,3 +106,9 @@
 [submodule "bundle/c.vim"]
 	path = bundle/c.vim
 	url = https://github.com/vim-scripts/c.vim.git
+[submodule "bundle/vim-markdown"]
+	path = bundle/vim-markdown
+	url = https://github.com/preservim/vim-markdown.git
+[submodule "bundle/vim-instant-markdown"]
+	path = bundle/vim-instant-markdown
+	url = https://github.com/instant-markdown/vim-instant-markdown.git

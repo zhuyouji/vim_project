@@ -129,6 +129,7 @@ map <leader>9 :tabnext 9<CR>
 map bn :bn<CR>
 map bp :bp<CR>
 
+map <leader>e :20Lexplore<CR>
 
 au FileType c++ setlocal dict+=~/.vim/dict/c++.dict
 au FileType c setlocal dict+=~/.vim/dict/c.dict
