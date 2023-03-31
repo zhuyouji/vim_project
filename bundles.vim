@@ -95,7 +95,7 @@ map <leader><space> :FixWhitespace<cr>
 "-------------
 Bundle 'scrooloose/nerdtree'
 let NERDTreeIgnore=['\.pyc']
-let NERDTreeChDirMode=3
+"let NERDTreeChDirMode=3
 nmap <silent> <F9> <ESC>:Tlist<RETURN>
 "列出当前目录文件
 map <F3> :NERDTreeToggle<CR>
@@ -105,6 +105,13 @@ map <C-F3> \be
 autocmd vimenter * if !argc() | NERDTree | endif
 " 只剩 NERDTree时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+let NERDTreeShowBookmarks = 1
+let NERDTreeChDirMode=2
+nnoremap <leader>n :NERDTree .<CR>
+augroup DIRCHANGE
+  au!
+  autocmd DirChanged global :NERDTreeCWD
+augroup END
 
 "-------------
 " 文件搜素工具
@@ -120,16 +127,28 @@ set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.pyc,*.png,*.jpg,*.gif  " Windows
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
 let g:ctrlp_extensions = ['funky']
-let g:ctrlp_working_path_mode = '0'
+let g:ctrlp_root_markers  =['build.sh']
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:10,results:20'
+let g:ctrlp_by_filename = 1
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
+  let g:ctrlp_use_caching = 1
 endif
 
 "ack
 "<Leader>c进行搜索，同时不自动打开第一个匹配的文件
 nmap <Leader>c :Ack!<CR>
+
+let g:ack_root_path = getcwd()
+function! SearchWord()
+  let name = input("Please enter word: ")
+  execute 'Ack!' shellescape(name) ' ' shellescape(g:ack_root_path)
+endfunction
+nnoremap <C-f> :call SearchWord()<CR>
+
+
 "调用ag进行搜索
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
@@ -285,5 +304,26 @@ Bundle 'MTDL9/vim-log-highlighting'
 " c.vim
 "-------------
 Bundle 'c.vim'
+
+"-------------
+" vim-rooter.vim
+"-------------
+Bundle 'airblade/vim-rooter'
+let g:rooter_manual_only = 1
+
+" Set the rooter patterns to identify the project root
+let g:rooter_patterns = ['build.sh']
+" Exclude some directories or files from matching
+"let g:rooter_patterns += ['!/.git/*', '!/build/*']
+" Set the rooter silent mode to avoid output messages
+let g:rooter_silent_chdir = 1
+" Set the rooter action for non-project files to change to file's directory
+let g:rooter_change_directory_for_non_project_files = 'home'
+
+
+"-------------
+" vim-rooter.vim
+"-------------
+Bundle 'mattn/vim-chatgpt'
 
 filetype plugin indent on     " required!

@@ -12,6 +12,7 @@ syntax on
 
 
 " set param
+set mouse=a
 set sw=2
 set ts=2
 set softtabstop=2
@@ -130,6 +131,8 @@ map bn :bn<CR>
 map bp :bp<CR>
 
 map <leader>e :20Lexplore<CR>
+set autochdir
+
 
 au FileType c++ setlocal dict+=~/.vim/dict/c++.dict
 au FileType c setlocal dict+=~/.vim/dict/c.dict

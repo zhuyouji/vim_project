@@ -112,3 +112,9 @@
 [submodule "bundle/vim-instant-markdown"]
 	path = bundle/vim-instant-markdown
 	url = https://github.com/instant-markdown/vim-instant-markdown.git
+[submodule "bundle/vim-rooter"]
+	path = bundle/vim-rooter
+	url = https://github.com/airblade/vim-rooter.git
+[submodule "bundle/vim-chatgpt"]
+	path = bundle/vim-chatgpt
+	url = https://github.com/mattn/vim-chatgpt.git
