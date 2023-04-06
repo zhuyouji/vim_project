@@ -1,0 +1,40 @@
+import os
+import ycm_core
+
+# 编译命令文件路径
+compilation_database_folder = os.path.abspath('./')
+
+# 编译命令文件名字，默认就是compile_commands.json
+database = ycm_core.CompilationDatabase( compilation_database_folder )
+
+# 获取对应文件的编译命令flags
+def FlagsForFile( filename ):
+    if not database:
+        return None
+
+    # Get the default arguments ycmd uses
+    default_flags = [
+        '-Wall',
+        '-Wextra',
+        '-Werror',
+        '-fexceptions',
+        '-DNDEBUG',
+        '-std=c++17',
+        '-x', 'c++',
+        '-isystem', '/usr/include/c++/9'
+
+    ]
+    default_flags += ['-isystem', '/usr/include/c++/9',
+          '-isystem', '/usr/include/x86_64-linux-gnu/c++/9']
+
+    # 从compile_commands.json中获取对应的flags
+    compilation_info = database.GetCompilationInfoForFile(filename)
+    if not compilation_info.compiler_flags_:
+        print("none flag")
+        return None
+
+    # We're done! Return the flags
+    return {
+        'flags': default_flags + list(compilation_info.compiler_flags_),
+        'do_cache': True
+    }

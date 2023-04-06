@@ -1,6 +1,7 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 let mapleader=','
+syntax on
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -30,12 +31,13 @@ Bundle 'instant-markdown/vim-instant-markdown'
 "--------------
 Bundle 'tpope/vim-vividchalk'
 Bundle 'chriskempson/vim-tomorrow-theme'
-Bundle 'ghifarit53/tokyonight-vim'
-set termguicolors
-let g:tokyonight_style = 'night' " available: night, storm
-let g:tokyonight_enable_italic = 1
-let g:lightline = {'colorscheme' : 'tokyonight'}
-let g:airline_theme = "tokyonight"
+"Bundle 'ghifarit53/tokyonight-vim'
+"set termguicolors
+"let g:tokyonight_style = 'night' " available: night, storm
+"let g:tokyonight_enable_italic = 0
+"let g:lightline = {'colorscheme' : 'tokyonight'}
+"let g:airline_theme = 'tokyonight'
+"
 "-------------
 " git 工具
 "-------------
@@ -229,6 +231,19 @@ Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'vim-scripts/a.vim'
 nmap <leader>a :A<CR>
 
+"-------------
+" 语法高亮
+"-------------
+Bundle 'octol/vim-cpp-enhanced-highlight'
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_posix_standard = 1
+let g:cpp_experimental_simple_template_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let g:cpp_concepts_highlight = 1
+let g:cpp_no_function_highlight = 1
+
 
 "-------------
 " 真彩色
@@ -246,18 +261,49 @@ inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+set termguicolors
 let g:ycm_confirm_extra_conf=0 "关闭加载.ycm_extra_conf.py提示
 let g:ycm_collect_identifiers_from_tags_files=1 " 开启 YCM 基于标签引擎
 let g:ycm_min_num_of_chars_for_completion=1 " 从第2个键入字符就开始罗列匹配项
 let g:ycm_cache_omnifunc=0 " 禁止缓存匹配项,每次都重新生成匹配项
 let g:ycm_seed_identifiers_with_syntax=1 " 语法关键字补全
 let g:ycm_show_diagnostics_ui = 0
+let g:ycm_global_ycm_extra_conf = {'semantic_triggers': ['async_completion', 'update_semanticdb', 'trigger_character']}
+let g:ycm_cache_omnifunc = 1
+let g:ycm_cache_omnifunc_timeout = 86400
+let g:ycm_semantic_cache_size = 500
+let g:ycm_use_ultisnips_completer = 1
+let g:ycm_autoclose_preview_window_after_completion = 1 "自动关闭预览窗口
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+let g:ycm_collect_identifiers_from_tags_files_limit = 5000
 
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
+let g:ycm_semantic_highlighting = 1
 
-nnoremap <F5> :YcmForceCompileAndDiagnostics<CR> "force recomile with syntatic
-"nnoremap <leader>lo :lopen<CR> "open locationlist
-"nnoremap <leader>lc :lclose<CR> "close locationlist
-inoremap <leader><leader> <C-x><C-o>
+" 设置颜色主题
+highlight YcmSemanticsError guifg=#ffffff guibg=#ff0000
+highlight YcmSemanticsWarning guifg=#ffffff guibg=#ffa500
+highlight YcmSemanticsEnumConstant guifg=#00ff00
+highlight YcmSemanticsFunction guifg=#00ffff
+highlight YcmSemanticsFunctionCall guifg=#ff00ff
+highlight YcmSemanticsVariable guifg=#ffa500
+highlight YcmSemanticsClass guifg=#00ff00
+highlight YcmSemanticsEnum guifg=#ffa500
+highlight YcmSemanticsMacro guifg=#00ffff
+let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_use_ultisnips_completer = 1
+let g:ycm_colored_diagnostics = 0
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_error_symbol = '✖'
+let g:ycm_warning_symbol = '⚠'
+let g:ycm_default_highlight_style = 'highlight'
+nnoremap <leader>lo :lopen<CR> "open locationlist
+nnoremap <leader>lc :lclose<CR> "close locationlist
 let g:ycm_filetype_whitelist = {
 			\ "c":1,
 			\ "cpp":1,
@@ -271,21 +317,11 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 "注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_collect_identifiers_from_tags_files = 1
+nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
-
-"-------------
-" 语法高亮
-"-------------
-Bundle 'octol/vim-cpp-enhanced-highlight'
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_posix_standard = 1
-let g:cpp_experimental_simple_template_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-let g:cpp_concepts_highlight = 1
-let g:cpp_no_function_highlight = 1
 
 "-------------
 " c++format
@@ -325,5 +361,16 @@ let g:rooter_change_directory_for_non_project_files = 'home'
 " vim-rooter.vim
 "-------------
 Bundle 'mattn/vim-chatgpt'
+au BufNewFile,BufRead *.cpp,*.cxx,*.cc,*.C,*.hh,*.hxx,*.h,*.moc set filetype=cpp
+au BufNewFile,BufRead *.hpp,*.hxx,*.hh set filetype=cpp-header
 
+Bundle 'sheerun/vim-polyglot'
+let g:polyglot_disabled = ['python', 'ruby', 'perl']
+let g:polyglot_load_plugins = ['c', 'cpp', 'rust']
+syn match cCppMemberFunc /\<\w\+::\w\+\>/
+let g:cpp_experimental_template_highlight = 1
+
+
+set runtimepath^=~/.vim/syntax/
+set runtimepath+=~/.vim
 filetype plugin indent on     " required!

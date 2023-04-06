@@ -118,3 +118,6 @@
 [submodule "bundle/vim-chatgpt"]
 	path = bundle/vim-chatgpt
 	url = https://github.com/mattn/vim-chatgpt.git
+[submodule "bundle/vim-polyglot"]
+	path = bundle/vim-polyglot
+	url = https://github.com/haaail/vim-polyglot.git

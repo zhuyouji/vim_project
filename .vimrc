@@ -36,7 +36,7 @@ set cul
 set shortmess=atI
 set clipboard=unnamed
 set go=
-color tokyonight
+color monokai
 set guifont=Courier_New:h10:cANSI
 autocmd InsertEnter *se nocul
 set ruler
