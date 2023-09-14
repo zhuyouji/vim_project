@@ -39,14 +39,23 @@ Bundle 'chriskempson/vim-tomorrow-theme'
 "let g:airline_theme = 'tokyonight'
 "
 "-------------
-" git 工具
+" 折叠工具
 "-------------
 Bundle 'tpope/vim-fugitive'
+set foldmethod=indent
+set foldlevel=99
+set foldcolumn=2
+nnoremap <Space> @=(foldclosed(line('.')) < 0 ? 'zc' : 'zo')<CR>
+
+"-------------
+" git工具
+"-------------
 Bundle 'gregsexton/gitv'
 Bundle 'zivyangll/git-blame.vim'
 Bundle 'Xuyuanp/nerdtree-git-plugin'
 Bundle 'airblade/vim-gitgutter'
 nnoremap <Leader>gb :<C-u>call gitblame#echo()<CR>
+
 "-------------
 " 标尺对齐工具
 "-------------
@@ -278,24 +287,8 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
 let g:ycm_collect_identifiers_from_tags_files_limit = 5000
 
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-endif
-let g:ycm_semantic_highlighting = 1
 
-" 设置颜色主题
-highlight YcmSemanticsError guifg=#ffffff guibg=#ff0000
-highlight YcmSemanticsWarning guifg=#ffffff guibg=#ffa500
-highlight YcmSemanticsEnumConstant guifg=#00ff00
-highlight YcmSemanticsFunction guifg=#00ffff
-highlight YcmSemanticsFunctionCall guifg=#ff00ff
-highlight YcmSemanticsVariable guifg=#ffa500
-highlight YcmSemanticsClass guifg=#00ff00
-highlight YcmSemanticsEnum guifg=#ffa500
-highlight YcmSemanticsMacro guifg=#00ffff
-let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_enable_diagnostic_highlighting = 1
 let g:ycm_use_ultisnips_completer = 1
 let g:ycm_colored_diagnostics = 0
 let g:ycm_show_diagnostics_ui = 0
@@ -356,6 +349,31 @@ let g:rooter_silent_chdir = 1
 " Set the rooter action for non-project files to change to file's directory
 let g:rooter_change_directory_for_non_project_files = 'home'
 
+
+"-------------
+" vim-rooter.vim
+"-------------
+Bundle 'prabirshrestha/vim-lsp'
+Bundle 'mattn/vim-lsp-settings'
+Bundle 'prabirshrestha/async.vim'
+Bundle 'prabirshrestha/asyncomplete.vim'
+Bundle 'prabirshrestha/asyncomplete-lsp.vim'
+Bundle 'jackguo380/vim-lsp-cxx-highlight'
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+" 启用 LSP 功能
+au User lsp_setup call lsp#register_server({
+    \ 'name': 'clangd',
+    \ 'cmd': {server_info->['clangd', '--background-index']},
+     \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+      \ 'initialization_options': {
+      \   'cacheDirectory': '~/.cache',
+      \   'highlight': { 'enabled' : v:true },
+      \   'emitInactiveRegions': v:true
+      \ },
+    \ 'whitelist': ['cpp', 'c','h','cc','hpp'],
+    \ })
 
 "-------------
 " vim-rooter.vim
